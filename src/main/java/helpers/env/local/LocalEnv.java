@@ -20,11 +20,6 @@ public class LocalEnv implements Environment {
 	}
 	
 	@Override
-	public String getDBPort() {
-		return "3306";
-	}
-	
-	@Override
 	public boolean isDev() {
 		return true;
 	}

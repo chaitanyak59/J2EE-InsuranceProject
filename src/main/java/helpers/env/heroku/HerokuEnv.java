@@ -5,23 +5,16 @@ import helpers.env.Environment;
 public class HerokuEnv implements Environment {
 	@Override
 	public String getDatabaseURL() {
-		return System.getenv("CLEARDB_DATABASE_URL");
+		return System.getenv("DB_URL");
 	}
 	
 	@Override
 	public String getDBPass() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getDBPort() {
-		// TODO Auto-generated method stub
-		return null;
+		return System.getenv("DB_PASS");
 	}
 	@Override
 	public String getDBUser() {
-		// TODO Auto-generated method stub
-		return null;
+		return System.getenv("DB_USER");
 	}
 	
 	@Override
@@ -31,11 +24,10 @@ public class HerokuEnv implements Environment {
 	
 	@Override
 	public boolean isHeroku() {
-		return true;
+		return System.getenv("HEROKU") == "1";
 	}
 	@Override
 	public String getDriver() {
-		// TODO Auto-generated method stub
-		return "com.mysql.jdbc.Driver";
+		return System.getenv("DB_DRIVER");
 	}
 }
