@@ -44,7 +44,7 @@ public class CreateProduct extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isAdminRequest = validateRequest(request, response);
 		if(!isAdminRequest) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request");
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request/Please Login with Admin credentials");
 		    return;
 		}
 		Enumeration<String> paramNames = request.getParameterNames();
