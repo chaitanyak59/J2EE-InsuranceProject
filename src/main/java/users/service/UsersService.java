@@ -21,7 +21,9 @@ public class UsersService {
 		}
 		byte[] salt = AppHelpers.getSalt();
 		String hash = AppHelpers.getSecurePassword(password, salt);
-		Users user = new Users(0, name, email, hash, AppHelpers.convertBtoString(salt), address, mobileNo, 0, null);
+		System.out.println("Entered Password:"+ password);
+		System.out.println("Inserting Hash:"+ hash);
+		Users user = new Users(0, name, email, hash, salt, address, mobileNo, 0, null);
 		// Store
 		int status = usersDao.createUserAccount(user);
 		return new AppResponse<Integer>(status, false);
@@ -38,7 +40,9 @@ public class UsersService {
 			return new AppResponse<Users>(null, false);
 		}
 		Users user = usersDao.getUserLoginDetails(email);
-		String computedHash = AppHelpers.getSecurePassword(password, user.getSalt().getBytes());
+		String computedHash = AppHelpers.getSecurePassword(password, user.getSalt());
+		System.out.println("Get Password:"+ password);
+		System.out.println("Get Hash:"+ user.getHash() + "  CH:"+computedHash);
 		if (computedHash.equals(user.getHash())) {
 			return new AppResponse<Users>(user, false); // First Pay-load, Second Error if any
 		} else {

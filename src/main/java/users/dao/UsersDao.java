@@ -25,13 +25,13 @@ public class UsersDao {
 	}
 	
 	public int createUserAccount(Users user) {
-		String sqlQuery = "INSERT INTO users(name,email,hash,salt,mobile,address) VALUES(?,?,?,?,?,?)";
+		String sqlQuery = "INSERT INTO users(name,email,hash,salt,mobile,address, role_id) VALUES(?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, user.getName());
 			pstmt.setString(2, user.getEmail());
 			pstmt.setString(3, user.getHash());
-			pstmt.setString(4, user.getSalt());
+			pstmt.setBytes(4, user.getSalt());
 			pstmt.setString(5, user.getMobileNo());
 			pstmt.setString(6, user.getAddress());
 			pstmt.executeUpdate();
@@ -71,7 +71,7 @@ public class UsersDao {
 			while(rs.next()){  
 				user.setEmail(rs.getString(1));
 				user.setHash(rs.getString(2));
-				user.setSalt(rs.getString(3));
+				user.setSalt(rs.getBytes(3));
 				user.setName(rs.getString(4));
 				user.setRole_id(rs.getInt(5));
 			}  

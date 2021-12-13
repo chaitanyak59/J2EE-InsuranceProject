@@ -7,7 +7,7 @@ public class Users {
 	private String name;
 	private String email;
 	private String hash;
-	private String salt;
+	private byte[] salt;
 	private String address;
 	private int role_id;
 	private Date isCreatedAt;
@@ -15,7 +15,7 @@ public class Users {
 	public Users() {
 		
 	}
-	public Users(int id, String name, String email, String hash, String salt, String address,String mobileNo, int role_id,
+	public Users(int id, String name, String email, String hash, byte[] salt, String address,String mobileNo, int role_id,
 			Date isCreatedAt) {
 		super();
 		this.id = id;
@@ -52,10 +52,10 @@ public class Users {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	public String getSalt() {
+	public byte[] getSalt() {
 		return salt;
 	}
-	public void setSalt(String salt) {
+	public void setSalt(byte[] salt) {
 		this.salt = salt;
 	}
 	public String getAddress() {

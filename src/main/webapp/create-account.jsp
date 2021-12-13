@@ -26,32 +26,32 @@ input, label, button {
 	<div class="container">
 		<form action="Create" method="POST">
 			<div class="form-group">
-				<label for="name">Name</label> <input type="text"
+				<label for="name">Name:</label> <input type="text"
 					class="form-control" id="name" name="name" placeholder="Enter Name"
 					required />
 			</div>
 			<div class="form-group">
-				<label for="address">Address</label> <input type="text"
+				<label for="address">Address:</label> <input type="text"
 					class="form-control" id="address" name="address"
 					placeholder="Enter Address" required />
 			</div>
 			<div class="form-group">
-				<label for="mobileNo">Phone</label> <input type="text"
+				<label for="mobileNo">Phone:</label> <input type="text"
 					class="form-control" id="mobileNo" name="mobileNo"
 					placeholder="Enter mobileNo" required />
 			</div>
 			<div class="form-group">
-				<label for="email">Email Address</label> <input type="email"
+				<label for="email">Email Address:</label> <input type="email"
 					class="form-control" id="email" name="email"
 					placeholder="Enter Email" required />
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label> <input type="password"
+				<label for="password">Password:</label> <input type="password"
 					class="form-control" id="password" name="password"
 					placeholder="Enter Password" required />
 			</div>
 			<div class="form-group">
-				<label for="cpassword">Password</label> <input type="password"
+				<label for="cpassword">Confirm Password:</label> <input type="password"
 					class="form-control" id="cpassword" name="confirm-password"
 					placeholder="Confirm Password" required />
 			</div>
