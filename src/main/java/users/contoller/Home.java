@@ -36,7 +36,7 @@ public class Home extends HttpServlet {
 		RequestDispatcher rd = null;
 		if (cookies != null) {
 		 for (Cookie cookie : cookies) {
-		   if (cookie.getName().equals("role_id")) {
+		   if (cookie.getName().equals(AppHelpers.USER_ROLE)) {
 			   boolean isAdmin = AppHelpers.isAdmin(Integer.valueOf(cookie.getValue()));
 			   rd = isAdmin ? request.getRequestDispatcher("home-admin.jsp") : request.getRequestDispatcher("home.jsp"); 
 			   rd.forward(request, response);

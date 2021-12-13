@@ -9,8 +9,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class AppHelpers {
+	public static final String USER_ID = "uid";
+	public static final String USER_ROLE = "role";
+	public static final String USER_NAME = "user";
 	
-	private static final int ADMIN_ROLE_ID = 1;
+	public static final int INVALID_PRODUCT = -1;
+	public static final int ADMIN_ROLE_ID = 1;
 	
 	/*Uses Salt and Password to create Hash*/
     public static String getSecurePassword(String password, byte[] salt) {

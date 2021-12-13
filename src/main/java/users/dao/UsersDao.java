@@ -64,7 +64,7 @@ public class UsersDao {
     public Users getUserLoginDetails(String email) {
     	Users user = new Users();
 		try{
-			String sqlQuery = "SELECT email,hash,salt,name,role_id from users where email=?";
+			String sqlQuery = "SELECT email,hash,salt,name,role_id,id from users where email=?";
 			PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, email);
 			ResultSet rs= pstmt.executeQuery();
@@ -74,6 +74,7 @@ public class UsersDao {
 				user.setSalt(rs.getBytes(3));
 				user.setName(rs.getString(4));
 				user.setRole_id(rs.getInt(5));
+				user.setId(rs.getInt(6));
 			}  
 			pstmt.close();
 		} catch(Exception e){

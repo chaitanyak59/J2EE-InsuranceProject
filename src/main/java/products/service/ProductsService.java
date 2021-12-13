@@ -2,6 +2,7 @@ package products.service;
 
 import java.util.List;
 
+import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
 import products.dao.ProductsDao;
 import products.model.Products;
@@ -15,8 +16,8 @@ public class ProductsService {
 	
 	public AppResponse<Integer> createProduct(String name, String type, String serial_no, String price) {
 		//Check Product Already Registered
-		Boolean isProductRegistered = productsDao.isValidProductBySerial(serial_no);
-		if (isProductRegistered) {
+		int isProductRegistered = productsDao.getProductBySerial(serial_no);
+		if (isProductRegistered != AppHelpers.INVALID_PRODUCT) {
 			return new AppResponse<Integer>(0, false);
 		}
 		Products product=new Products(0, name, type, serial_no, price, null);

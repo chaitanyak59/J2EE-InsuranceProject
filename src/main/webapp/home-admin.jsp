@@ -13,7 +13,7 @@
 	<h3>Actions</h3>
 	<ul type="disc">
 	 <li><a href="create-product.jsp">Create Product</a></li>
-	 <li><a href="Products">View Registered Products</a></li>
+	 <li><a href="Products">Browse Products</a></li>
 	 <li><a href="Logout">Logout</a></li>
 	</ul>
 </body>

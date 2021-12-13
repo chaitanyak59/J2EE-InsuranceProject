@@ -16,6 +16,18 @@
 		<body>
 			<div class="main">
 				<p class="sign" align="center">Create Product</p>
+				<div style="text-align: center;">
+					<font color="red">
+						<c:if test="${param.status == false}">
+							<c:out value="Failed to Create/Product already registered" />
+						</c:if>
+					</font>
+					<font color="green">
+						<c:if test="${param.status}">
+							<c:out value="Product Created Successfully" />
+						</c:if>
+					</font>
+				</div>
 				<form action="CreateProduct" method="POST">
 					<br><input type="text" class="un" id="name" name="name" placeholder="Enter Name" required />
 					<select name="type" id="type" class="un">
@@ -33,24 +45,12 @@
 
 					<input type="text" id="price" name="price" placeholder="Enter Price" class="un" required />
 
-					<div>
+					<div class="flex-btn-submit">
 						<button type="submit" class="submit">Create</button>
 						<button class="submit" onclick="window.location='Home'" id="myButton" class="submit">Home</button>
 					</div>
 
 				</form>
-				<div>
-					<font color="red">
-						<c:if test="${param.status == false}">
-							<c:out value="Failed to Create/Product already registered" />
-						</c:if>
-					</font>
-					<font color="green">
-						<c:if test="${param.status}">
-							<c:out value="Created Successfully" />
-						</c:if>
-					</font>
-				</div>
 			</div>
 
 		</body>

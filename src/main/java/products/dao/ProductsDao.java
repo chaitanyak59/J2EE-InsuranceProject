@@ -9,6 +9,7 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import database.Database;
+import helpers.app.AppHelpers;
 import products.model.Products;
 
 public class ProductsDao {
@@ -84,21 +85,21 @@ public class ProductsDao {
 		return products;
 	}
 	
-	public boolean isValidProductBySerial(String serial_no) {
-		boolean isValid = false;
+	public int getProductBySerial(String serial_no) {
+		int productID = AppHelpers.INVALID_PRODUCT;
 		try{
-			String sqlQuery = "SELECT id,name FROM products WHERE serial_no=?";
+			String sqlQuery = "SELECT id FROM products WHERE serial_no=?";
 			PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, serial_no);
 			ResultSet rs= pstmt.executeQuery();
-			if(rs.isBeforeFirst()) {
-				isValid = true;
-			} 
+			while(rs.next()) {
+				productID = rs.getInt(1);
+			}
 			pstmt.close();
 		} catch(Exception e){
 		     e.printStackTrace();
-		     return false;
+		     return productID;
 		}
-		return isValid;
+		return productID;
 	}
 }

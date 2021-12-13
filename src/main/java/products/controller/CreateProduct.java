@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -57,9 +58,11 @@ public class CreateProduct extends HttpServlet {
 				errors.add(paramName);
 			}
 		}
-		String url = "create-product.jsp?status=";
+		RequestDispatcher rd;
+		String url = "/create-product.jsp?status=";
 		if(errors.size() > 0) {
-			response.sendRedirect(url+"false");
+			rd = request.getRequestDispatcher(url + "false");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -69,10 +72,12 @@ public class CreateProduct extends HttpServlet {
 		String price = request.getParameter("price");
 		AppResponse<Integer> res = productsSvc.createProduct(name, type, serial_no, price);
 		if(res.hasError() || res.getPayload() == 0) {
-			response.sendRedirect(url+"false");
+			rd = request.getRequestDispatcher(url + "false");
+			rd.forward(request, response);
 			return;
 		}
-		response.sendRedirect(url+"true");
+		rd = request.getRequestDispatcher(url + "true");
+		rd.forward(request, response);
 	}
 	
 	private boolean validateRequest(HttpServletRequest request, HttpServletResponse response) {

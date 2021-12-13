@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helpers.app.AppHelpers;
+import static helpers.app.AppHelpers.USER_ID;
+import static helpers.app.AppHelpers.USER_NAME;
+import static helpers.app.AppHelpers.USER_ROLE;
 import helpers.app.AppResponse;
 import helpers.env.Environment;
 import helpers.env.Factory;
@@ -77,10 +80,12 @@ public class Login extends HttpServlet {
 				rd.forward(request, response);
 			}else {
 				//Valid redirect to home page & set cookie
-				 Cookie user = AppHelpers.createCookie("user", res.getPayload().getName(), env.isHeroku(), true, 86400, null, "/");
-		         Cookie role =AppHelpers.createCookie("role_id",String.valueOf(res.getPayload().getRole_id()), env.isHeroku(), true, 86400, null, "/");
+				 Cookie user = AppHelpers.createCookie(USER_NAME, res.getPayload().getName(), env.isHeroku(), true, 86400, null, "/");
+		         Cookie role =AppHelpers.createCookie(USER_ROLE,String.valueOf(res.getPayload().getRole_id()), env.isHeroku(), true, 86400, null, "/");
+		         Cookie userID = AppHelpers.createCookie(USER_ID, String.valueOf(res.getPayload().getId()), env.isHeroku(), true, 86400, null, "/");
 		         response.addCookie(user);
 		         response.addCookie(role);
+		         response.addCookie(userID);
 		         response.sendRedirect("Home"); // Home Servlet
 			}
 		}
