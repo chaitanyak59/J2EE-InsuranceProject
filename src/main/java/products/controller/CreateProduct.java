@@ -43,8 +43,8 @@ public class CreateProduct extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean isAdminRequest = validateRequest(request, response);
-		if(!isAdminRequest) {
+		boolean isAdmin = validateRequest(request, response);
+		if(!isAdmin) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request/Please Login with Admin credentials");
 		    return;
 		}
@@ -85,7 +85,7 @@ public class CreateProduct extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("role_id")) {
+				if (cookie.getName().equals(AppHelpers.USER_ROLE)) {
 					isAdmin = AppHelpers.isAdmin(Integer.valueOf(cookie.getValue()));
 					break;
 				}

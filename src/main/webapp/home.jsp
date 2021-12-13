@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="main.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <meta charset="ISO-8859-1">
 <title>Home</title>
 </head>
@@ -13,7 +17,7 @@
 	<h3>Actions</h3>
 	<ul type="disc">
 	 <li><a href="registration.jsp">Register Product</a></li>
-	 <li><a href="registrations-list.jsp">View Your Registrations</a></li>
+	 <li><a href="RegistrationsList">View Your Registrations</a></li>
 	 <li><a href="claims.jsp">View Claims</a></li>
 	 <li><a href="Logout">Logout</a></li>
 	</ul>

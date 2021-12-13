@@ -10,6 +10,18 @@ public class Registrations {
 	private Date purchaseDate;
 	private Date isCreatedAt;
 	private String name;
+	private String productType;
+	
+	public String getProductType() {
+		return productType;
+	}
+
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -23,7 +35,7 @@ public class Registrations {
 	public Registrations() {}
 	
 	
-	public Registrations(int id, int userId, int productID, String name, Date purchaseDate, Date registrationDate, Date isCreatedAt) {
+	public Registrations(int id, int userId, int productID, String name, Date purchaseDate, Date registrationDate, Date isCreatedAt, String productType) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -32,6 +44,7 @@ public class Registrations {
 		this.purchaseDate = purchaseDate;
 		this.isCreatedAt = isCreatedAt;
 		this.name = name;
+		this.productType = productType;
 	}
 	
 	public int getId() {

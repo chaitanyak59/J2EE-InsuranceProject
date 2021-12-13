@@ -17,15 +17,10 @@
 									}
 								}
 							</script>
-							<style>
-								table,
-								th,
-								td {
-									border: 1px solid black;
-									width: 50%;
-									border-collapse: collapse;
-								}
-							</style>
+										<link href="main.css" rel="stylesheet" type="text/css">
+										<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 						</head>
 
 						<body>
@@ -77,13 +72,14 @@
 													<c:out value="${product.price}" />
 												</td>
 												<td><a href="javascript:confirmGo('Do you want to Delete the Product?','DeleteProduct?id=<c:out value="
-														${product.id}" />')">Delete</a></td>
+														${product.id}" />')"><i class="fa fa-trash" style="font-size:25px"></i></a></td>
 											</tr>
 										</c:forEach>
 									</table>
 								</c:when>
 							</c:choose>
-							<button onclick="window.location='Home'" id="myButton">Home</button>
+							<br> <br>
+							<button style="margin-left: unset;" class="submit" onclick="window.location='Home'" id="myButton">Home</button>
 						</body>
 
 						</html>

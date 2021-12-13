@@ -1,6 +1,12 @@
 package helpers.app;
 
-public class AppResponse<T> {
+import java.io.Serializable;
+
+public class AppResponse<T> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private T payload;
 	private boolean isError;
 

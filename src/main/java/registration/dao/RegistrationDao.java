@@ -1,7 +1,6 @@
 package registration.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,7 +46,9 @@ public class RegistrationDao {
 	}
 	
 	public List<Registrations> getAllRegistrations(int userID) {
-		String sqlQuery = "SELECT * FROM registrations WHER user_id=?;";
+		String sqlQuery = "SELECT r.*,p.type FROM registrations r JOIN products p \r\n"
+				+ "ON p.id = r.product_id\r\n"
+				+ "WHERE user_id=?";
 		List<Registrations> registrations =new ArrayList<Registrations>();
 		
 		try {
@@ -56,12 +57,14 @@ public class RegistrationDao {
 			ResultSet rs= pstmt.executeQuery();
 			while(rs.next()) {
 				 Registrations reg = new Registrations();      
-				 reg.setId(rs.getInt(1));
-				 reg.setUserId(rs.getInt(2));
-				 reg.setProductID(rs.getInt(3));
-				 reg.setRegistrationDate(rs.getDate(4));
-				 reg.setPurchaseDate(rs.getDate(5));
-				 reg.setIsCreatedAt(rs.getDate(6));
+				 reg.setId(rs.getInt("id"));
+				 reg.setUserId(rs.getInt("user_id"));
+				 reg.setProductID(rs.getInt("product_id"));
+				 reg.setName(rs.getString("name"));
+				 reg.setRegistrationDate(rs.getDate("registration_date"));
+				 reg.setPurchaseDate(rs.getDate("purchase_date"));
+				 reg.setIsCreatedAt(rs.getDate("is_created_at"));
+				 reg.setProductType(rs.getString("type"));
 				 registrations.add(reg);
 				} 
 			pstmt.close();

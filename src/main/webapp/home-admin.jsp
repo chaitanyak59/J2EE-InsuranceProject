@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="main.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <meta charset="ISO-8859-1">
 <title>Home Admin</title>
 </head>

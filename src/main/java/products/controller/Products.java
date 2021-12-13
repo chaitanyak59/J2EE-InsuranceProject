@@ -21,20 +21,15 @@ import products.service.ProductsService;
 public class Products extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductsService productsSvc;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public Products() {
         super();
         productsSvc = new ProductsService();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean isAdminRequest = validateRequest(request, response);
-		if(!isAdminRequest) {
+		boolean isAdmin = validateRequest(request, response);
+		if(!isAdmin) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request");
 		    return;
 		}
@@ -58,7 +53,7 @@ public class Products extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("role_id")) {
+				if (cookie.getName().equals(AppHelpers.USER_ROLE)) {
 					isAdmin = AppHelpers.isAdmin(Integer.valueOf(cookie.getValue()));
 					break;
 				}
@@ -66,5 +61,4 @@ public class Products extends HttpServlet {
 		}
 		return isAdmin;
 	}
-
 }

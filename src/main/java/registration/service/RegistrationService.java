@@ -24,12 +24,12 @@ public class RegistrationService {
 		if (checkProduct == AppHelpers.INVALID_PRODUCT) {
 			return new AppResponse<Integer>(0, false);
 		}
-		Registrations newReg=new Registrations(0,userID, checkProduct, name, purchaseDate, null, null); // Dates will be current Time-stamp by default
+		Registrations newReg=new Registrations(0,userID, checkProduct, name, purchaseDate, null, null, null); // Dates will be current Time-stamp by default
 		int status = registrationDao.createProductRegistration(newReg);
 		return new AppResponse<Integer>(status, false);
 	}
 
-	public AppResponse<List<Registrations>> getAllProducts(int userID) {
+	public AppResponse<List<Registrations>> getAllRegistrations(int userID) {
 		List<Registrations> list = registrationDao.getAllRegistrations(userID);
 		return new AppResponse<List<Registrations>>(list, list.size() == 0);
 	}
