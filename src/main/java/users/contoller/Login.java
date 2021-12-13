@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
+import helpers.env.Environment;
+import helpers.env.Factory;
 import users.model.Users;
 import users.service.UsersService;
 
@@ -23,6 +26,7 @@ import users.service.UsersService;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersService userSvc;
+	private Environment env;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -30,6 +34,7 @@ public class Login extends HttpServlet {
 	public Login() {
 		super();
 		userSvc = new UsersService();
+		env = Factory.getEnvInstance();
 	}
 
 	/**
@@ -48,7 +53,6 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Enumeration<String> paramNames = request.getParameterNames();
 		// Error Checking... If any details are missing error will be thrown
 		ArrayList<String> errors = new ArrayList<String>();
@@ -73,16 +77,10 @@ public class Login extends HttpServlet {
 				rd.forward(request, response);
 			}else {
 				//Valid redirect to home page & set cookie
-				 Cookie c1=new Cookie("user",res.getPayload().getName());
-		         Cookie c2=new Cookie("role_id",String.valueOf(res.getPayload().getRole_id()));
-		         c1.setPath("/");
-		         c1.setMaxAge(86400);
-		         c1.setHttpOnly(true);
-		         c2.setPath("/");
-		         c2.setMaxAge(86400);
-		         c2.setHttpOnly(true);
-		         response.addCookie(c2);
-		         response.addCookie(c1);
+				 Cookie user = AppHelpers.createCookie("user", res.getPayload().getName(), env.isHeroku(), true, 86400, null, "/");
+		         Cookie role =AppHelpers.createCookie("role_id",String.valueOf(res.getPayload().getRole_id()), env.isHeroku(), true, 86400, null, "/");
+		         response.addCookie(user);
+		         response.addCookie(role);
 		         response.sendRedirect("Home"); // Home Servlet
 			}
 		}

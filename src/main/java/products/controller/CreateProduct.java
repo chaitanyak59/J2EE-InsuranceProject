@@ -6,10 +6,12 @@ import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
 import products.service.ProductsService;
 
@@ -40,7 +42,11 @@ public class CreateProduct extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		boolean isAdminRequest = validateRequest(request, response);
+		if(!isAdminRequest) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request");
+		    return;
+		}
 		Enumeration<String> paramNames = request.getParameterNames();
 		// Error Checking... If any details are missing error will be thrown
 		ArrayList<String> errors = new ArrayList<String>();
@@ -67,6 +73,20 @@ public class CreateProduct extends HttpServlet {
 			return;
 		}
 		response.sendRedirect(url+"true");
+	}
+	
+	private boolean validateRequest(HttpServletRequest request, HttpServletResponse response) {
+		boolean isAdmin = false;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("role_id")) {
+					isAdmin = AppHelpers.isAdmin(Integer.valueOf(cookie.getValue()));
+					break;
+				}
+			}
+		}
+		return isAdmin;
 	}
 
 }

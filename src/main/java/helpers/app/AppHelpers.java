@@ -2,6 +2,11 @@ package helpers.app;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 public class AppHelpers {
 	
@@ -45,5 +50,26 @@ public class AppHelpers {
     
     public static boolean isAdmin(int role) {
     	return role == ADMIN_ROLE_ID;
+    }
+    
+    public static Optional<String> getCookie(HttpServletRequest request, String key) {
+    	return Arrays.stream(request.getCookies())
+    		      .filter(c -> key.equals(c.getName()))
+    		      .map(Cookie::getValue)
+    		      .findAny();
+    }
+    
+    public static Cookie createCookie(String key, String value, boolean isSecure, boolean isHttp, int age, String domain, String path) {
+    	Cookie c1=new Cookie(key,value);
+    	c1.setSecure(isSecure);
+    	c1.setHttpOnly(isHttp);
+    	c1.setMaxAge(age);
+    	if(domain != null)  {
+    		c1.setDomain(domain);
+    	}
+    	if(path != null) {
+    		c1.setPath(path);
+    	}
+    	return c1;
     }
 }
