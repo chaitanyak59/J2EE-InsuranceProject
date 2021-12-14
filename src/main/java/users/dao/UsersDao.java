@@ -2,6 +2,8 @@ package users.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -82,5 +84,37 @@ public class UsersDao {
 		}
 		return user;
     }
-	
+    
+    public List<Users> getAllUsers(String searchParam) {
+    	String searchQuery;
+    	PreparedStatement pstmt;
+		List<Users> users = new ArrayList<Users>();
+		try {
+			if(searchParam== null || (searchParam.length() == 0)) {
+	    		searchQuery = "SELECT * FROM users;";
+				pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
+	    	} else {
+	    		searchQuery = "SELECT * FROM users where name=? OR address=? OR email=?";
+				pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
+				pstmt.setString(1, searchParam);
+				pstmt.setString(2, searchParam);
+				pstmt.setString(3, searchParam);
+	    	}
+			ResultSet rs= pstmt.executeQuery();
+			while(rs.next()) {
+				 Users user = new Users();      
+				 user.setId(rs.getInt("id"));
+				 user.setName(rs.getString("name"));
+				 user.setEmail(rs.getString("email"));
+				 user.setMobileNo(rs.getString("mobile"));
+				 user.setIsCreatedAt(rs.getDate("is_created_at"));
+				 users.add(user);
+				} 
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<Users>(); //Empty Array
+		}
+		return users;
+	}
 }

@@ -30,8 +30,8 @@ public class ProductsService {
 		return new AppResponse<Integer>(status, false);
 	}
 	
-	public AppResponse<List<Products>> getAllProducts() {
-		List<Products> list = productsDao.getAllProducts();
+	public AppResponse<List<Products>> getAllProducts(String searchParam) {
+		List<Products> list = productsDao.getAllProducts(searchParam);
 		return new AppResponse<List<Products>>(list, list.size() == 0);
 	}
 }

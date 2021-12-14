@@ -18,6 +18,7 @@
 	<ul type="disc">
 	 <li><a href="create-product.jsp">Create Product</a></li>
 	 <li><a href="Products">Browse Products</a></li>
+	 <li><a href="UsersList">Browse User Accounts</a></li>
 	 <li><a href="Logout">Logout</a></li>
 	</ul>
 </body>

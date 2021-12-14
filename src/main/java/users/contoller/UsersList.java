@@ -1,4 +1,4 @@
-package products.controller;
+package users.contoller;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,30 +13,37 @@ import javax.servlet.http.HttpServletResponse;
 
 import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
-import products.service.ProductsService;
+import users.service.UsersService;
+
 /**
- * Servlet implementation class Products
+ * Servlet implementation class UsersList
  */
-@WebServlet("/Products")
-public class Products extends HttpServlet {
+@WebServlet("/UsersList")
+public class UsersList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductsService productsSvc;
-    
-    public Products() {
+	private UsersService userSvc;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UsersList() {
         super();
-        productsSvc = new ProductsService();
+        userSvc = new UsersService();
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isAdmin = validateRequest(request, response);
 		if(!isAdmin) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request");
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request/Please Login with Admin credentials");
 		    return;
 		}
 		String searchParameter = request.getParameter("search");
-		AppResponse<List<products.model.Products>> res = productsSvc.getAllProducts(searchParameter);
-		request.setAttribute("productLists", res.getPayload());
-		RequestDispatcher rd = request.getRequestDispatcher("/products-list.jsp");
+		AppResponse<List<users.model.Users>> res = userSvc.getAllUsers(searchParameter);
+		request.setAttribute("users", res.getPayload());
+		RequestDispatcher rd = request.getRequestDispatcher("/users-list.jsp");
 		rd.forward(request, response);
 	}
 
@@ -61,4 +68,5 @@ public class Products extends HttpServlet {
 		}
 		return isAdmin;
 	}
+
 }

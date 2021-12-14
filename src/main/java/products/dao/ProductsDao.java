@@ -60,12 +60,21 @@ public class ProductsDao {
 		return 1;
 	}
 	
-	public List<Products> getAllProducts() {
-		String sqlQuery = "SELECT * FROM products;";
+	public List<Products> getAllProducts(String searchParam) {
 		List<Products> products =new ArrayList<Products>();
-		
+		String searchQuery;
+    	PreparedStatement pstmt;
 		try {
-			PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
+			if(searchParam == null || searchParam.length() == 0) {
+				searchQuery = "SELECT * FROM products;";
+				pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
+			} else {
+				searchQuery = "SELECT * FROM products where name=? OR type=? OR serial_no=?";
+				pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
+				pstmt.setString(1, searchParam);
+				pstmt.setString(2, searchParam);
+				pstmt.setString(3, searchParam);
+			}
 			ResultSet rs= pstmt.executeQuery();
 			while(rs.next()) {
 				 Products product = new Products();      

@@ -1,5 +1,7 @@
 package users.service;
 
+import java.util.List;
+
 import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
 import users.dao.UsersDao;
@@ -48,5 +50,10 @@ public class UsersService {
 		} else {
 			return new AppResponse<Users>(null, false);
 		}
+	}
+	
+	public AppResponse<List<Users>> getAllUsers(String searchParam) {
+		List<Users> list = usersDao.getAllUsers(searchParam);
+		return new AppResponse<List<Users>>(list, list.size() == 0);
 	}
 }

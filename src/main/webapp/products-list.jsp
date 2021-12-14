@@ -4,20 +4,20 @@
 <%@ page import="java.util.List"%>
 <%@ page import="products.model.Products"%>
 <!DOCTYPE html>
-<% List<Products> productLists = (List<Products>) request.getAttribute("productLists");
-						%>
+<%
+List<Products> productLists = (List<Products>) request.getAttribute("productLists");
+%>
 <html>
-
 <head>
 <meta charset="ISO-8859-1">
 <title>Products List</title>
 <script>
-								function confirmGo(m, u) {
-									if (confirm(m)) {
-										window.location = u;
-									}
-								}
-							</script>
+	function confirmGo(m, u) {
+		if (confirm(m)) {
+			window.location = u;
+		}
+	}
+</script>
 <link href="main.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu"
 	rel="stylesheet">
@@ -46,6 +46,10 @@
 			</h3>
 		</c:when>
 		<c:when test="${productLists.size() > 0}">
+		   <form method="POST" action="Products">
+			 <input style="background-color: aliceblue;" value="${param.search}" type="text" name="search" class="un" placeholder="Search by name,type or serial no" autocomplete="off"/>
+			 <i class="fa fa-search" style="font-size: 20px;position: relative;left:-20%"></i>
+			</form>
 			<table>
 				<tr>
 					<th>ID</th>
@@ -65,7 +69,7 @@
 						<td><a
 							href="javascript:confirmGo('Do you want to Delete the Product?','DeleteProduct?id=<c:out value="
 														${product.id}" />')"><i
-								class="fa fa-trash" style="font-size: 25px"></i></a></td>
+								class="fa fa-trash" style="font-size: 20px"></i></a></td>
 					</tr>
 				</c:forEach>
 			</table>
