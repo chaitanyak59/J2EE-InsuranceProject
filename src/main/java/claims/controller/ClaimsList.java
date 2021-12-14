@@ -43,16 +43,19 @@ public class ClaimsList extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request/Please Login");
 			return;
 		}
-		
-		int userID = getUserDetails(request, response, AppHelpers.USER_ID);
 
+		int userID = getUserDetails(request, response, AppHelpers.USER_ID);
+		String searchParameter = request.getParameter("search");
 		AppResponse<List<claims.model.Claims>> res;
 		if (AppHelpers.isAdmin(roleID)) {
-			res = claimsService.getAllClaims();
-		} else {
-			res = claimsService.getUserClaims(userID);
+			res = claimsService.getAllClaims(searchParameter);
 			request.setAttribute("claims_list", res.getPayload());
-			RequestDispatcher rd = request.getRequestDispatcher("/claims-list.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/claims-manage.jsp");
+			rd.forward(request, response);
+		} else {
+			res = claimsService.getUserClaims(userID, searchParameter);
+			request.setAttribute("claims_list", res.getPayload());
+			RequestDispatcher rd = request.getRequestDispatcher("/user-claims.jsp");
 			rd.forward(request, response);
 		}
 	}

@@ -40,7 +40,7 @@ function confirmGo(m, u) {
 				<c:out value="You have no requests" />
 			</h3>
 		</c:when>
-		<c:when test="${claims_list.size() >= 0}">
+		<c:when test="${claims_list.size() > 0}">
 			<table>
 				<tr>
 					<th>S.NO</th>
