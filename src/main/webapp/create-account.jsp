@@ -20,7 +20,7 @@
 
 					<br><input type="text" class="un" id="name" name="name" placeholder="Enter Name" required />
 					<input type="text" class="un" id="address" name="address" placeholder="Enter Address" required />
-					<input type="text" class="un" id="mobileNo" name="mobileNo" placeholder="Enter mobileNo" required />
+					<input type="text" class="un" id="mobileNo" name="mobileNo" placeholder="Enter Mobile No" required />
 					<input type="email" class="un" id="email" name="email" placeholder="Enter Email" required />
 					<input type="password" class="un" id="password" name="password" placeholder="Enter Password"
 						required />
@@ -28,6 +28,8 @@
 						placeholder="Confirm Password" required />
 					<button type="submit" class="submit">Create</button>
 				</form>
+				<br><br>
+				<input type="button" class="submit" onclick="window.location='login.jsp'" id="myButton" value="Login">
 			</div>
 			<font color="red">
 				<c:if test="${param.status == false}">

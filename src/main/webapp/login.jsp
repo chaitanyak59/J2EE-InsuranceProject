@@ -30,9 +30,11 @@
 		<form action="Login" method="post" class="form1">
 			<input type="text" name="email" value="${param.email}" class="un"
 				placeholder="Enter email" /> <input type="password" name="password"
-				class="pass" value="${param.password}" placeholder="Password" /> <input
-				type="submit" class="submit" value="Login" />
+				class="pass" value="${param.password}" placeholder="Password" />
+			<input type="submit" class="submit" value="Login" />
 		</form>
+		<br><br>
+		<input type="button" class="submit" onclick="window.location='create-account.jsp'" id="myButton" value="Signup">
 	</div>
 
 
