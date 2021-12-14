@@ -43,13 +43,13 @@ public class ClaimsService {
 		return new AppResponse<Integer>(status, false);
 	}
 
-	public AppResponse<List<Claims>> getUserClaims(int userID) {
-		List<Claims> list = claimsDao.getUserClaims(userID);
+	public AppResponse<List<Claims>> getUserClaims(int userID, String searchParam) {
+		List<Claims> list = claimsDao.getUserClaims(userID, searchParam);
 		return new AppResponse<List<Claims>>(list, list.size() == 0);
 	}
 
-	public AppResponse<List<Claims>> getAllClaims() {
-		List<Claims> list = claimsDao.getAllClaims();
+	public AppResponse<List<Claims>> getAllClaims(String searchParam) {
+		List<Claims> list = claimsDao.getAllClaims(searchParam);
 		return new AppResponse<List<Claims>>(list, list.size() == 0);
 	}
 

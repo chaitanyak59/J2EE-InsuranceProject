@@ -43,7 +43,7 @@ public class ClaimsDao {
 		return 1;
 	}
 	
-	public List<Claims> getAllClaims() {
+	public List<Claims> getAllClaims(String searchParam) {
 		String sqlQuery = String.format("select c.*,p.name,u.email FROM claims c\r\n"
 				+ "JOIN registrations rg ON rg.id = c.registration_id\r\n"
 				+ "JOIN products p ON rg.product_id = p.id\r\n"
@@ -72,7 +72,7 @@ public class ClaimsDao {
 		return claims;
 	}
 	
-	public List<Claims> getUserClaims(int userID) {
+	public List<Claims> getUserClaims(int userID, String searchParam) {
 		String userQuery = String.format("select c.*,p.name FROM claims c\r\n"
 				+ "JOIN registrations rg ON rg.id = c.registration_id\r\n"
 				+ "JOIN products p ON rg.product_id = p.id\r\n"
