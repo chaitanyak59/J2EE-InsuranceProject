@@ -24,7 +24,7 @@ public class HerokuEnv implements Environment {
 	
 	@Override
 	public boolean isHeroku() {
-		return System.getenv("HEROKU") == "1";
+		return true;
 	}
 	@Override
 	public String getDriver() {
