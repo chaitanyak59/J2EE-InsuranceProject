@@ -14,6 +14,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <meta charset="ISO-8859-1">
 <title>Your Registrations</title>
+<script>
+function confirmGo(m, u) {
+	if (confirm(m)) {
+		window.location = u;
+	}
+}
+</script>
 </head>
 <body>
 	<h3>Your Registrations</h3>
@@ -32,6 +39,7 @@
 					<th>Purchase Date</th>
 					<th>Registration Date</th>
 					<th>Product Type</th>
+					<th><i class="fa fa-bars" style="font-size:25px"></i></th>
 				</tr>
 				<c:forEach items="${registrations}" var="item">
 					<tr>
@@ -40,6 +48,8 @@
 						<td><c:out value="${item.purchaseDate}" /></td>
 						<td><c:out value="${item.registrationDate}" /></td>
 						<td><c:out value="${item.productType}" /></td>
+						<td><a href="javascript:confirmGo('Do you want to raise claim?','ClaimRequest?id=<c:out value="
+														${item.id}" />')"><font style="font-weight:bold;text-decoration:underline;color:blue;">Claim</font></a></td>
 					</tr>
 				</c:forEach>
 			</table>

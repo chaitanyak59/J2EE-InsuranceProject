@@ -1,4 +1,4 @@
-package registration.controller;
+package claims.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,24 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import claims.service.ClaimsService;
 import helpers.app.AppHelpers;
 import helpers.app.AppResponse;
-import registration.service.RegistrationService;
 
 /**
- * Servlet implementation class RegistrationsList
+ * Servlet implementation class ClaimsList
  */
-@WebServlet("/RegistrationsList")
-public class RegistrationsList extends HttpServlet {
+@WebServlet("/ClaimsList")
+public class ClaimsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private RegistrationService registrationService;
+	private ClaimsService claimsService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RegistrationsList() {
+	public ClaimsList() {
 		super();
-		registrationService = new RegistrationService();
+		claimsService = new ClaimsService();
 	}
 
 	/**
@@ -38,15 +38,23 @@ public class RegistrationsList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Authenticated Request
-		int userID = getUserID(request, response);
-		if (userID == -1) {
+		int roleID = getUserDetails(request, response, AppHelpers.USER_ROLE);
+		if (roleID == -1) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized Request/Please Login");
 			return;
 		}
-		AppResponse<List<registration.model.Registrations>> res = registrationService.getUserRegistrations(userID);
-		request.setAttribute("registrations", res.getPayload());
-		RequestDispatcher rd = request.getRequestDispatcher("/user-registrations.jsp");
-		rd.forward(request, response);
+		
+		int userID = getUserDetails(request, response, AppHelpers.USER_ID);
+
+		AppResponse<List<claims.model.Claims>> res;
+		if (AppHelpers.isAdmin(roleID)) {
+			res = claimsService.getAllClaims();
+		} else {
+			res = claimsService.getUserClaims(userID);
+			request.setAttribute("claims_list", res.getPayload());
+			RequestDispatcher rd = request.getRequestDispatcher("/claims-list.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -59,13 +67,13 @@ public class RegistrationsList extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private int getUserID(HttpServletRequest request, HttpServletResponse response) {
-		int userID = -1;
-		Optional<String> userCookie = AppHelpers.getCookie(request, AppHelpers.USER_ID);
+	private int getUserDetails(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+		int value = -1;
+		Optional<String> userCookie = AppHelpers.getCookie(request, cookieName);
 		if (userCookie.isPresent()) {
-			userID = Integer.valueOf(userCookie.get());
+			value = Integer.valueOf(userCookie.get());
 		}
-		return userID;
+		return value;
 	}
 
 }

@@ -3,10 +3,16 @@ package helpers.app;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
+import static java.util.Calendar.YEAR;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.DATE;
 
 public class AppHelpers {
 	public static final String USER_ID = "uid";
@@ -75,5 +81,22 @@ public class AppHelpers {
     		c1.setPath(path);
     	}
     	return c1;
+    }
+    
+    public static int getDiffYears(Date first, Date last) {
+        Calendar a = getCalendar(first);
+        Calendar b = getCalendar(last);
+        int diff = b.get(Calendar.YEAR) - a.get(YEAR);
+        if (a.get(MONTH) > b.get(MONTH) || 
+            (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+            diff--;
+        }
+        return diff;
+    }
+
+    public static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
     }
 }

@@ -45,7 +45,7 @@ public class RegistrationDao {
 		return 1;
 	}
 	
-	public List<Registrations> getAllRegistrations(int userID) {
+	public List<Registrations> getUserRegistrations(int userID) {
 		String sqlQuery = "SELECT r.*,p.type FROM registrations r JOIN products p \r\n"
 				+ "ON p.id = r.product_id\r\n"
 				+ "WHERE user_id=?";
@@ -73,6 +73,28 @@ public class RegistrationDao {
 			return new ArrayList<Registrations>(); //Empty Array
 		}
 		return registrations;
+	}
+	
+	public Registrations validateRegistrationDetails(int userID, int regID, int productID) {
+		Registrations registration = null;
+		try{
+			String sqlQuery = "SELECT id, registration_date FROM registrations WHERE user_id=? AND id=? OR product_id=?";
+			PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
+			pstmt.setInt(1, userID);
+			pstmt.setInt(2, regID);
+			pstmt.setInt(3, productID);
+			ResultSet rs= pstmt.executeQuery();
+			while(rs.next()) {
+				registration = new Registrations();
+				registration.setId(rs.getInt("id"));
+				registration.setRegistrationDate(rs.getDate("registration_date"));
+			}
+			pstmt.close();
+		} catch(Exception e){
+		     e.printStackTrace();
+		     return null;
+		}
+		return registration;
 	}
 
 }

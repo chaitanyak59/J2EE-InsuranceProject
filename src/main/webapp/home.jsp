@@ -17,8 +17,8 @@
 	<h3>Actions</h3>
 	<ul type="disc">
 	 <li><a href="registration.jsp">Register Product</a></li>
-	 <li><a href="RegistrationsList">View Your Registrations</a></li>
-	 <li><a href="claims.jsp">View Claims</a></li>
+	 <li><a href="RegistrationsList">View Registered Products</a></li>
+	 <li><a href="ClaimsList">View Claim Requests</a></li>
 	 <li><a href="Logout">Logout</a></li>
 	</ul>
 </body>

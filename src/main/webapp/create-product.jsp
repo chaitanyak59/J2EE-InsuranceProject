@@ -47,7 +47,7 @@
 
 					<div class="flex-btn-submit">
 						<button type="submit" class="submit">Create</button>
-						<button class="submit" onclick="window.location='Home'" id="myButton" class="submit">Home</button>
+						<button class="submit" onclick="window.location='Home'" id="myButton">Home</button>
 					</div>
 
 				</form>
